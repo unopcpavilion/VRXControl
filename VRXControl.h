@@ -1,3 +1,6 @@
+#ifndef VRXCONTROL_H
+#define VRXCONTROL_H
+
 #include <Arduino.h>
 
 void waitForInMs(unsigned int ms);
@@ -26,3 +29,5 @@ struct ChEntry
     uint8_t s1, s2, s3;
     uint16_t freq; // MHz
 };
+
+#endif // VRXCONTROL_H
