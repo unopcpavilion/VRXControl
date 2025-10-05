@@ -6,9 +6,9 @@ unsigned long lastPulseTime = 0;
 void countPulse()
 {
     unsigned long currentTime = micros();
-    
-    // Debounce: ignore pulses that come too quickly (< 10 microseconds)
-    if (currentTime - lastPulseTime > 10) {
+
+    if (currentTime - lastPulseTime > 10)
+    {
         pulseCount++;
         lastPulseTime = currentTime;
     }
@@ -38,19 +38,28 @@ VRXControl::VRXControl(VRXControlPins pins)
 
 bool VRXControl::detectVideo()
 {
-    pulseCount = 0;
-    delay(100);
-    unsigned long count = pulseCount;
-    Serial.print("Pulse count: ");
-    Serial.println(count);
-    return (count > _pins.THRESHOLD);
+    for (size_t i = 0; i < 5; i++)
+    {
+        pulseCount = 0;
+        delay(100);
+        unsigned long count = pulseCount;
+         Serial.print(count);
+         Serial.print(" ");
+
+        if (count < 1450 || count > 1700){
+            Serial.println();
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void VRXControl::setChannel(const ChEntry &ch)
 {
-    digitalWrite(_pins.S1_PIN, ch.s1? HIGH : LOW);
-    digitalWrite(_pins.S2_PIN, ch.s2? HIGH : LOW);
-    digitalWrite(_pins.S3_PIN, ch.s3? HIGH : LOW);
+    digitalWrite(_pins.S1_PIN, ch.s1 ? HIGH : LOW);
+    digitalWrite(_pins.S2_PIN, ch.s2 ? HIGH : LOW);
+    digitalWrite(_pins.S3_PIN, ch.s3 ? HIGH : LOW);
 
     digitalWrite(_pins.CS1_PIN, ch.cs1 ? HIGH : LOW);
     digitalWrite(_pins.CS2_PIN, ch.cs2 ? HIGH : LOW);

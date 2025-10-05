@@ -8,7 +8,7 @@ void waitForInMs(unsigned int ms);
 struct VRXControlPins
 {
     uint8_t S1_PIN, S2_PIN, S3_PIN, CS1_PIN, CS2_PIN, CS3_PIN, VIDEO_DET_PIN;
-    unsigned long THRESHOLD, CHANNEL_SETTLE_MS;
+    unsigned long CHANNEL_SETTLE_MS;
 };
 
 class VRXControl
